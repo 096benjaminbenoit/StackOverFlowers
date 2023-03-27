@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thread index{% endblock %}
+
+{% block body %}
+    <h1>Thread index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Post_date</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for thread in threads %}
+            <tr>
+                <td>{{ thread.id }}</td>
+                <td>{{ thread.title }}</td>
+                <td>{{ thread.content }}</td>
+                <td>{{ thread.postDate ? thread.postDate|date('Y-m-d') : '' }}</td>
+                <td>{{ thread.status }}</td>
+                <td>
+                    <a href="{{ path('app_thread_show', {'id': thread.id}) }}">show</a>
+                    <a href="{{ path('app_thread_edit', {'id': thread.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_thread_new') }}">Create new</a>
+{% endblock %}
