@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Repository\TechnologyRepository;
 use App\Repository\ThreadRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +17,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ThreadRepository $threadRepository, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
-        $threads = $threadRepository->descSort();
+        // $threads = $threadRepository->descSort();
+        $threads = $threadRepository->findBy([], ['post_date' => 'DESC']);
 
         $pagination = $paginator->paginate(
             $threads,

@@ -46,7 +46,7 @@ class ThreadController extends AbstractController
     #[Route('/{id}', name: 'app_thread_show', methods: ['GET'])]
     public function show(Thread $thread, CommentRepository $commentRepository, int $id, UserRepository $userRepository): Response
     {
-        $comments = $commentRepository->findAll();
+        $comments = $commentRepository->descSort();
         $users = $userRepository->findAll();
 
         return $this->render('thread/show.html.twig', [
