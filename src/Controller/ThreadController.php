@@ -34,7 +34,7 @@ class ThreadController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $threadRepository->save($thread, true);
 
-            return $this->redirectToRoute('app_thread_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('thread/new.html.twig', [

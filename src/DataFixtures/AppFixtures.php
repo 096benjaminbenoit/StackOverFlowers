@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
             $thread->setTitle($faker->sentence());
             $thread->setContent($faker->paragraphs(3, true));
             $thread->setPostDate($faker->dateTimeThisYear());
-            $thread->setStatus($faker->word());
+            $thread->setStatus($faker->randomElement(['Active', 'Closed', 'Moderate']));
             $manager->persist($thread);
             $threads[] = $thread;
         }
