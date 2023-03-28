@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ThreadRepository $threadRepository, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
-        $threads = $threadRepository->findAll();
+        $threads = $threadRepository->descSort();
 
         $pagination = $paginator->paginate(
             $threads,

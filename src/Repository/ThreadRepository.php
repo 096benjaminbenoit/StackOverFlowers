@@ -39,6 +39,15 @@ class ThreadRepository extends ServiceEntityRepository
         }
     }
 
+    public function descSort()
+    {
+        return $this->createQueryBuilder('t')
+                    ->orderBy('t.post_date', 'DESC')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Thread[] Returns an array of Thread objects
 //     */
