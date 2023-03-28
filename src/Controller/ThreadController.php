@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Thread;
+use App\Entity\Comment;
 use App\Form\ThreadType;
+use App\Repository\CommentRepository;
 use App\Repository\ThreadRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/thread')]
 class ThreadController extends AbstractController
@@ -41,10 +44,15 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_thread_show', methods: ['GET'])]
-    public function show(Thread $thread): Response
+    public function show(Thread $thread, CommentRepository $commentRepository, int $id, UserRepository $userRepository): Response
     {
+        $comments = $commentRepository->findAll();
+        $users = $userRepository->findAll();
+
         return $this->render('thread/show.html.twig', [
             'thread' => $thread,
+            'comments' => $comments,
+            'users' => $users
         ]);
     }
 

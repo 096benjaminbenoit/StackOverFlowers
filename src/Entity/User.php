@@ -24,6 +24,11 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Thread::class, orphanRemoval: true)]
     private Collection $thread;
 
+    public function __toString()
+    {
+        return $this->username;
+    }
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();

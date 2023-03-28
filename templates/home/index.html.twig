@@ -5,15 +5,16 @@
 {% block body %}
 <section class="container d-flex justify-content-between align-items-center gap-2 mt-3">
     <h2 class="display-6 fw-bold">All threads</h2>
-    <div class="d-flex gap-2">
+    <div class="d-md-flex gap-2">
+        <a href="/thread/new" class="btn btn-dark"><i class="fa-solid fa-plus pe-2" style="color: #ffffff;"></i>New thread</a>
         <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown button
+                Technologys
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            {% for technology in technologys %}
+                <li><a class="dropdown-item" href="#">{{ technology.name }}</a></li>
+            {% endfor %}
             </ul>
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
@@ -24,40 +25,21 @@
 </section>
 
 <section class="container">
-    <div class="card my-3">
-        <div class="card-body">
-            <h5 class="card-title">Title of the thread</h5>
-            <p class="card-text">First words of the thread. Text limit ...</p>
-            <a href="/thread/{id}" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
+    {% for thread in pagination %}
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">{{ thread.title }}</h5>
+                    <span>{{ thread.postdate|date('d/m/Y') }}</span>
+                </div>
+                <p class="card-text py-2">{{ thread.content }}</p>
+                <a href="{{ path('app_thread_show', {'id': thread.id}) }}" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
+            </div>
         </div>
-    </div>
-
-    <div class="card my-3">
-        <div class="card-body">
-            <h5 class="card-title">Title of the thread</h5>
-            <p class="card-text">First words of the thread. Text limit ...</p>
-            <a href="#" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
-        </div>
-    </div>
-
-    <div class="card my-3">
-        <div class="card-body">
-            <h5 class="card-title">Title of the thread</h5>
-            <p class="card-text">First words of the thread. Text limit ...</p>
-            <a href="#" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
-        </div>
-    </div>
-
-    <div class="card my-3">
-        <div class="card-body">
-            <h5 class="card-title">Title of the thread</h5>
-            <p class="card-text">First words of the thread. Text limit ...</p>
-            <a href="#" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
-        </div>
-    </div>
+    {% endfor %}
 </section>
 
-<nav aria-label="Page navigation example">
+{# <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
@@ -73,6 +55,10 @@
       </a>
     </li>
   </ul>
-</nav>
+</nav> #}
+
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(pagination) }}
+</div>
 
 {% endblock %}
