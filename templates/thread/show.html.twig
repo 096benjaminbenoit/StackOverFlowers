@@ -10,10 +10,11 @@
         <h2 class="">{{ thread.title }}</h2>
         <p class="p-0 m-0 fst-italic">{{ thread.postDate ? thread.postDate|date('d/m/Y') : '' }}</p>
     </div>
-    <div class="">
-        <div class="card-body">
+    {% for technology in thread.technology %}
+        <span class="badge bg-secondary">{{ technology.name }}</span>
+    {% endfor %}
+    <div class="card-body pt-2">
             {{ thread.content}}
-        </div>
     </div>
 </section>
 
@@ -22,13 +23,12 @@
 <section class="container">
 
     {% for comment in thread.comment %}
-        <div class="mt-5 container w-75 mx-auto">
+        <div class="mt-3 container w-75 mx-auto card py-2 mb-3">
             <div class="d-flex justify-content-between">
                 <span class="fw-bold">{{comment.user}}</span>
                 <span class="fst-italic">{{comment.commentdate|date('d/m/Y')}}</span>
             </div>
             <p class="pt-3">{{ comment.content }}</p>
-            <hr>
         </div>
     {% endfor %}
 

@@ -21,6 +21,11 @@ class Technology
     #[ORM\ManyToMany(targetEntity: Thread::class, inversedBy: 'technology')]
     private Collection $thread;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->thread = new ArrayCollection();

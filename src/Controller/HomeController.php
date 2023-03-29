@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ThreadSearchType;
 use App\Repository\TechnologyRepository;
 use App\Repository\ThreadRepository;
 use Doctrine\ORM\EntityManager;
@@ -17,22 +18,25 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ThreadRepository $threadRepository, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
-        // $threads = $threadRepository->descSort();
+        $searchThreadForm = $this->createForm(ThreadSearchType::class);
+
         $threads = $threadRepository->findBy([], ['post_date' => 'DESC']);
+        
+        if($searchThreadForm->handleRequest($request)->isSubmitted() && $searchThreadForm->isValid()) {
+            $criteria = $searchThreadForm->getData();
+        }
 
         $pagination = $paginator->paginate(
-            $threads,
+            $threadRepository->searchThread($criteria ?? []),
             $request->query->getInt('page', 1),
             10
         );
-
-        $technolgys = $technologyRepository->findAll();
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'threads' => $threads,
             'pagination' => $pagination,
-            'technologys' => $technolgys
+            'search_form' => $searchThreadForm
         ]);
     }
 }

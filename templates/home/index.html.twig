@@ -3,20 +3,15 @@
 {% block title %}StackOverFlowers - home{% endblock %}
 
 {% block body %}
+
+
 <section class="container d-flex justify-content-between align-items-center gap-2 mt-3">
     <h2 class="display-6 fw-bold">All threads</h2>
     <div class="d-md-flex gap-2">
         <a href="/thread/new" class="btn btn-dark"><i class="fa-solid fa-plus pe-2" style="color: #ffffff;"></i>New thread</a>
-        <div class="dropdown">
-            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Technologys
-            </button>
-            <ul class="dropdown-menu">
-            {% for technology in technologys %}
-                <li><a class="dropdown-item" href="#">{{ technology.name }}</a></li>
-            {% endfor %}
-            </ul>
-        </div>
+        {{form_start(search_form)}}
+            {{ form_row(search_form.technology, {'attr': {'class': 'form-select bg-dark text-light'}})}}
+        {{form_end(search_form)}}
         <div class="btn-group" role="group" aria-label="Basic example">
             <button class="btn btn-dark" href="">{{ knp_pagination_sortable(pagination, '', 'post_date') }}</button>
         </div>
@@ -31,6 +26,9 @@
                     <h5 class="card-title">{{ thread.title }}</h5>
                     <span>{{ thread.postdate|date('d/m/Y') }}</span>
                 </div>
+                {% for technology in thread.technology %}
+                    <span class="badge bg-secondary">{{ technology.name }}</span>
+                {% endfor %}
                 <p class="card-text py-2">{{ thread.content }}</p>
                 <a href="{{ path('app_thread_show', {'id': thread.id}) }}" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
             </div>

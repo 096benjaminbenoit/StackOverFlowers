@@ -23,6 +23,7 @@ class Thread
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+
     private ?\DateTimeInterface $post_date = null;
 
     #[ORM\Column(length: 255)]

@@ -23,6 +23,15 @@ class AppFixtures extends Fixture
             $manager->persist($user);
             $users[] = $user;
         }
+
+        $technologys = [];
+        $technos = ['PHP', 'JAVASCRIPT', 'PYTHON', 'REACT', 'ANGULAR', 'SYMFONY', 'LARAVEL'];
+        foreach ($technos as $techno) {
+            $technology = new Technology();
+            $technology->setName($techno);
+            $manager->persist($technology);
+            $technologys[] = $technology;
+        }
         
         $threads = [];
         for ($i = 0; $i < 50; $i++) {
@@ -32,10 +41,11 @@ class AppFixtures extends Fixture
             $thread->setContent($faker->paragraphs(3, true));
             $thread->setPostDate($faker->dateTimeThisYear());
             $thread->setStatus($faker->randomElement(['Active', 'Closed', 'Moderate']));
+            $thread->addTechnology($faker->randomElement($technologys));
             $manager->persist($thread);
             $threads[] = $thread;
         }
-        
+
         $comments = [];
         for ($i = 0; $i < 100; $i++)  {
             $comment = new Comment();
@@ -46,15 +56,6 @@ class AppFixtures extends Fixture
             $manager->persist($comment);
             $comments[] = $comment;
         }
-        
-        $technologys = [];
-        for ($i = 0; $i < 10; $i++) {
-            $technology = new Technology();
-            $technology->setName($faker->word());
-            $manager->persist($technology);
-            $technologys[] = $technology;
-        }
-
         $manager->flush();
     }
 }

@@ -38,6 +38,24 @@ class ThreadRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+        public function searchThread($criteria)
+    {
+        $qb = $this->createQueryBuilder('th');
+
+        if(!empty($criteria['technology'])) {
+            $qb
+            ->join('th.technology', 't')
+            ->andWhere('t IN (:technology)')
+            ->setParameter('technology', $criteria['technology'])
+            ;
+        }
+        return $qb
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
 //    /**
 //     * @return Thread[] Returns an array of Thread objects
 //     */
