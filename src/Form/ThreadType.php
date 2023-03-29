@@ -40,15 +40,6 @@ class ThreadType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'username',
             ])
-            ->add('postdate', DateType::class, [
-                'label' => false,
-                'input' => 'datetime',
-                'widget' => 'single_text',
-                'data' => new \DateTime("now"),
-                'attr' => [
-                    'class' => 'invisible'
-                ]
-            ])
             ->add('status', ChoiceType::class, [
                 'label' => false,
                 'choices' => [

@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Thread;
 use App\Entity\Comment;
 use App\Form\ThreadType;
-use App\Repository\CommentRepository;
-use App\Repository\ThreadRepository;
+use App\Form\CommentType;
 use App\Repository\UserRepository;
+use App\Repository\ThreadRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +30,7 @@ class ThreadController extends AbstractController
     public function new(Request $request, ThreadRepository $threadRepository): Response
     {
         $thread = new Thread();
+        $thread->setPostDate(new \DateTime("now"));
         $form = $this->createForm(ThreadType::class, $thread);
         $form->handleRequest($request);
 
@@ -43,16 +46,29 @@ class ThreadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_thread_show', methods: ['GET'])]
-    public function show(Thread $thread, CommentRepository $commentRepository, int $id, UserRepository $userRepository): Response
+    #[Route('/{id}', name: 'app_thread_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Thread $thread, CommentRepository $commentRepository, int $id, UserRepository $userRepository): Response
     {
-        $comments = $commentRepository->descSort();
+        $comments = $commentRepository->findBy([], ['comment_date' => 'DESC']);
         $users = $userRepository->findAll();
+
+        $comment = new Comment();
+        $comment->setThread($thread);
+        $comment->setCommentDate(new DateTime("now"));
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentRepository->save($comment, true);
+
+            return $this->redirectToRoute('app_thread_show', ['id' => $thread->getId()], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('thread/show.html.twig', [
             'thread' => $thread,
             'comments' => $comments,
-            'users' => $users
+            'users' => $users,
+            'form' => $form
         ]);
     }
 
