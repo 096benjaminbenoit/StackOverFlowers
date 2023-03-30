@@ -12,7 +12,7 @@
                     <th scope="col">Title</th>
                     {# <th>Content</th> #}
                     <th scope="col">Post date</th>
-                    <th scope="col">Statu</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -23,7 +23,15 @@
                     <td>{{ thread.title }}</td>
                     {# <td>{{ thread.content }}</td> #}
                     <td>{{ thread.postDate ? thread.postDate|date('d/m/Y') : '' }}</td>
-                    <td>{{ thread.status }}</td>
+                    <td>
+                    {% if thread.status == 'Active' %}
+                        <span class="badge bg-success">Active</span>
+                    {% elseif thread.status == 'Closed' %}
+                        <span class="badge bg-warning">Closed</span>
+                    {% elseif thread.status == 'Moderate' %}
+                        <span class="badge bg-danger">Moderate</span>
+                    {% endif %}
+                    </td>
                     <td class="">
                         <a class="btn btn-dark" href="{{ path('app_thread_show', {'id': thread.id}) }}"><i class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
                         <a class="btn btn-dark" href="{{ path('app_thread_edit', {'id': thread.id}) }}"><i class="fa-solid fa-pen" style="color: #ffffff;"></i></a>

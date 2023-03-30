@@ -41,7 +41,8 @@ class ThreadRepository extends ServiceEntityRepository
 
         public function searchThread($criteria)
     {
-        $qb = $this->createQueryBuilder('th');
+        $qb = $this->createQueryBuilder('th')
+        ->andWhere("th.status IN ('active', 'closed')");
 
         if(!empty($criteria['technology'])) {
             $qb

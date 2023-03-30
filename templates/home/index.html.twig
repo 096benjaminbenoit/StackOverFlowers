@@ -27,6 +27,9 @@
                 </div>
                 {% for technology in thread.technology %}
                     <span class="badge bg-secondary">{{ technology.name }}</span>
+                        {% if thread.status == 'Closed' %}
+                            <span class="badge bg-warning">CLOSED</span>
+                        {% endif %}
                 {% endfor %}
                 <p class="card-text py-2">{{ thread.content }}</p>
                 <a href="{{ path('app_thread_show', {'id': thread.id}) }}" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
