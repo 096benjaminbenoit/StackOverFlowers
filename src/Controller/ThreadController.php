@@ -51,9 +51,11 @@ class ThreadController extends AbstractController
     {
         $comments = $commentRepository->findBy([], ['comment_date' => 'DESC']);
         $users = $userRepository->findAll();
+        $thisUser = $this->getUser();
 
         $comment = new Comment();
         $comment->setThread($thread);
+        $comment->setUser($thisUser);
         $comment->setCommentDate(new DateTime("now"));
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);

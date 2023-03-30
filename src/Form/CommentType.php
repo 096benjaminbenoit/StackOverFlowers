@@ -21,7 +21,7 @@ class CommentType extends AbstractType
                     'placeholder' => 'Your comment'
                 ]
             ])
-            ->add('user')
+            // ->add('user')
         ;
     }
 

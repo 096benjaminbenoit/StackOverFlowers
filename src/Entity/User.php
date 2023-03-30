@@ -3,38 +3,36 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $comment;
+    #[ORM\Column]
+    private array $roles = [];
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Thread::class, orphanRemoval: true)]
-    private Collection $thread;
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
-    public function __toString()
+    public function  __toString()
     {
         return $this->username;
     }
-
-    public function __construct()
-    {
-        $this->comment = new ArrayCollection();
-        $this->thread = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -53,62 +51,55 @@ class User
     }
 
     /**
-     * @return Collection<int, Comment>
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getComment(): Collection
+    public function getUserIdentifier(): string
     {
-        return $this->comment;
+        return (string) $this->username;
     }
 
-    public function addComment(Comment $comment): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment->add($comment);
-            $comment->setUser($this);
-        }
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
-        return $this;
+        return array_unique($roles);
     }
 
-    public function removeComment(Comment $comment): self
+    public function setRoles(array $roles): self
     {
-        if ($this->comment->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getUser() === $this) {
-                $comment->setUser(null);
-            }
-        }
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Thread>
+     * @see PasswordAuthenticatedUserInterface
      */
-    public function getThread(): Collection
+    public function getPassword(): string
     {
-        return $this->thread;
+        return $this->password;
     }
 
-    public function addThread(Thread $thread): self
+    public function setPassword(string $password): self
     {
-        if (!$this->thread->contains($thread)) {
-            $this->thread->add($thread);
-            $thread->setUser($this);
-        }
+        $this->password = $password;
 
         return $this;
     }
 
-    public function removeThread(Thread $thread): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        if ($this->thread->removeElement($thread)) {
-            // set the owning side to null (unless already changed)
-            if ($thread->getUser() === $this) {
-                $thread->setUser(null);
-            }
-        }
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

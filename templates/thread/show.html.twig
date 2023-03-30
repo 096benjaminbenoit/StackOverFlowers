@@ -39,7 +39,7 @@
     {% if thread.status == 'Active' %}
 
         {{ form_start(form, {'attr': {'class': 'w-75 mx-auto'}}) }}
-            {{ form_row(form.user, {'attr': {'class': 'form-control my-2'}}) }}
+            {# {{ form_row(form.user, {'attr': {'class': 'form-control my-2'}}) }} #}
             {{ form_row(form.content, {'attr': {'class': 'form-control my-2'}}) }}
                 <button class="btn btn-dark mt-3"><i class="fa-solid fa-plus pe-2" style="color: #ffffff;"></i>{{ button_label|default('New comment') }}</button>
         {{ form_end(form) }}
