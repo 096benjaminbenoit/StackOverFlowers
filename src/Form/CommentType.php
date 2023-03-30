@@ -19,7 +19,8 @@ class CommentType extends AbstractType
                     'cols' => '30',
                     'rows' => '5',
                     'placeholder' => 'Your comment'
-                ]
+                ],
+                'label' => false
             ])
             // ->add('user')
         ;

@@ -22,7 +22,7 @@ class ThreadController extends AbstractController
     public function index(ThreadRepository $threadRepository): Response
     {
         return $this->render('thread/index.html.twig', [
-            'threads' => $threadRepository->findAll(),
+            'threads' => $threadRepository->findBy([], ['post_date' => 'DESC']),
         ]);
     }
 

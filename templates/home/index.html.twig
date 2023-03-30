@@ -4,7 +4,6 @@
 
 {% block body %}
 <section class="container mt-3">
-    {# <h2 class="display-6 fw-bold">All threads</h2> #}
 
     <div class="d-flex justify-content-end gap-2">
         <a href="/thread/new" class="btn btn-dark"><i class="fa-solid fa-plus pe-2" style="color: #ffffff;"></i>New thread</a>
@@ -12,7 +11,7 @@
             {{ form_row(search_form.technology, {'attr': {'class': 'form-select bg-dark text-light'}})}}
         {{form_end(search_form)}}
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button class="btn btn-dark" href="">{{ knp_pagination_sortable(pagination, '', 'post_date') }}</button>
+            <button class="btn btn-dark" href=""><i class="fa-solid fa-calendar me-2" style="color: #ffffff;"></i>{{ knp_pagination_sortable(pagination, '', 'post_date') }}</button>
         </div>
     </div>
 </section>
