@@ -15,11 +15,11 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, [
-                'attr' => array(
+                'attr' => [
                     'cols' => '30',
                     'rows' => '5',
                     'placeholder' => 'Your comment'
-                )
+                ]
             ])
             ->add('user')
         ;
