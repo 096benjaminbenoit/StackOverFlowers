@@ -46,6 +46,7 @@ class ThreadRepository extends ServiceEntityRepository
         if(!empty($criteria['technology'])) {
             $qb
             ->join('th.technology', 't')
+            ->orderBy('th.post_date', 'DESC')
             ->andWhere('t IN (:technology)')
             ->setParameter('technology', $criteria['technology'])
             ;
