@@ -22,7 +22,10 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title">{{ thread.title }}</h5>
-                    <span>{{ thread.postdate|date('d/m/Y') }}</span>
+                    <div class="d-flex flex-column align-items-end">
+                        <span>{{ thread.postdate|date('d/m/Y') }}</span>
+                        <span class="fst-italic">by <span class="fw-bold">{{ thread.user }}</span></span>
+                    </div>
                 </div>
                 {% for technology in thread.technology %}
                     <span class="badge bg-secondary">{{ technology.name }}</span>

@@ -36,22 +36,19 @@ class ThreadType extends AbstractType
                 'choice_label' => 'name',
                 'mapped' => false
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'username',
-            ])
-            ->add('status', ChoiceType::class, [
-                'label' => false,
-                'choices' => [
-                    'Active' => 'Active',
-                    'Closed' => 'Closed',
-                    'Modarate' => 'Modarate'
-                ],
-                'data' => 'Active',
-                'attr' => [
-                    'class' => 'invisible'
-                ]
-            ])
+
+            // ->add('status', ChoiceType::class, [
+            //     'label' => false,
+            //     'choices' => [
+            //         'Active' => 'Active',
+            //         'Closed' => 'Closed',
+            //         'Modarate' => 'Modarate'
+            //     ],
+            //     'data' => 'Active',
+            //     'attr' => [
+            //         'class' => 'invisible'
+            //     ]
+            // ])
         ;
     }
 

@@ -19,9 +19,7 @@ class HomeController extends AbstractController
     public function index(ThreadRepository $threadRepository, PaginatorInterface $paginator, Request $request, TechnologyRepository $technologyRepository): Response
     {
         $searchThreadForm = $this->createForm(ThreadSearchType::class);
-
-        // $threads = $threadRepository->findBy([], ['post_date' => 'DESC']);
-        
+                
         if($searchThreadForm->handleRequest($request)->isSubmitted() && $searchThreadForm->isValid()) {
             $criteria = $searchThreadForm->getData();
         }
@@ -34,7 +32,6 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            // 'threads' => $threads,
             'pagination' => $pagination,
             'search_form' => $searchThreadForm
         ]);
