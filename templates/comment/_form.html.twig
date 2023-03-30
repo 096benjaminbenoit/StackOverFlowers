@@ -1,0 +1,9 @@
+{{ form_start(form, {'attr': {'class': 'w-75 mx-auto'}}) }}
+    {{ form_row(form.user, {'attr': {'class': 'form-control my-2'}}) }}
+    {{ form_row(form.thread, {'attr': {'class': 'form-control my-2'}}) }}
+    {{ form_row(form.content, {'attr': {'class': 'form-control my-2'}}) }}
+    {{ form_row(form.comment_date, {'attr': {'class': ' my-2'}}) }}
+    <a class="btn btn-dark" href="{{ path('app_comment_index') }}"><i class="fa-solid fa-arrow-left pe-2" style="color: #ffffff;"></i>Back to board</a>
+    <button class="btn btn-dark"><i class="fa-solid fa-floppy-disk pe-2" style="color: #ffffff;"></i>{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

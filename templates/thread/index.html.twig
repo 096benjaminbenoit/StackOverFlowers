@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thread index{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-3">Admin - all threads</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover container">
+            <thead>
+                <tr>
+                    {# <th scope="col">Id</th> #}
+                    <th scope="col">Title</th>
+                    {# <th>Content</th> #}
+                    <th scope="col">Post date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            {% for thread in threads %}
+                <tr>
+                    {# <td>{{ thread.id }}</td> #}
+                    <td>{{ thread.title }}</td>
+                    {# <td>{{ thread.content }}</td> #}
+                    <td>{{ thread.postDate ? thread.postDate|date('d/m/Y') : '' }}</td>
+                    <td>
+                    {% if thread.status == 'Active' %}
+                        <span class="badge bg-success">Active</span>
+                    {% elseif thread.status == 'Closed' %}
+                        <span class="badge bg-warning">Closed</span>
+                    {% elseif thread.status == 'Moderate' %}
+                        <span class="badge bg-danger">Moderate</span>
+                    {% endif %}
+                    </td>
+                    <td class="">
+                        <a class="btn btn-dark" href="{{ path('app_thread_show', {'id': thread.id}) }}"><i class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
+                        <a class="btn btn-dark" href="{{ path('app_thread_edit', {'id': thread.id}) }}"><i class="fa-solid fa-pen" style="color: #ffffff;"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

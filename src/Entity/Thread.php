@@ -23,6 +23,7 @@ class Thread
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+
     private ?\DateTimeInterface $post_date = null;
 
     #[ORM\Column(length: 255)]
@@ -32,11 +33,17 @@ class Thread
     private Collection $technology;
 
     #[ORM\OneToMany(mappedBy: 'thread', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OrderBy(["comment_date" => "DESC"])]
     private Collection $comment;
 
     #[ORM\ManyToOne(inversedBy: 'thread')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    public function __toString()
+    {
+        return $this->title;
+    }
 
     public function __construct()
     {

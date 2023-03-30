@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StackOverFlowers - home{% endblock %}
+
+{% block body %}
+<section class="container mt-3">
+    {# <h2 class="display-6 fw-bold">All threads</h2> #}
+
+    <div class="d-flex justify-content-end gap-2">
+        <a href="/thread/new" class="btn btn-dark"><i class="fa-solid fa-plus pe-2" style="color: #ffffff;"></i>New thread</a>
+        {{form_start(search_form)}}
+            {{ form_row(search_form.technology, {'attr': {'class': 'form-select bg-dark text-light'}})}}
+        {{form_end(search_form)}}
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-dark" href="">{{ knp_pagination_sortable(pagination, '', 'post_date') }}</button>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    {% for thread in pagination %}
+        <div class="card my-3 allThreads">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">{{ thread.title }}</h5>
+                    <span>{{ thread.postdate|date('d/m/Y') }}</span>
+                </div>
+                {% for technology in thread.technology %}
+                    <span class="badge bg-secondary">{{ technology.name }}</span>
+                        {% if thread.status == 'Closed' %}
+                            <span class="badge bg-warning">CLOSED</span>
+                        {% endif %}
+                {% endfor %}
+                <p class="card-text py-2">{{ thread.content }}</p>
+                <a href="{{ path('app_thread_show', {'id': thread.id}) }}" class="btn btn-dark">Go to thread<i class="fa-solid fa-arrow-right ps-3" style="color: #ffffff;"></i></a>
+            </div>
+        </div>
+    {% endfor %}
+</section>
+
+<div class="navigation d-flex justify-content-center">
+    {{ knp_pagination_render(pagination) }}
+</div>
+
+{% endblock %}

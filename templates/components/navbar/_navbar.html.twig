@@ -1,0 +1,31 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+      <img src="https://cdn-icons-png.flaticon.com/512/346/346167.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+      <a class="navbar-brand" href="/">Stack<b>OverFlowers</b></a> 
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse gap-2" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        {# <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/thread/new">New thread</a>
+        </li> #}
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2 pe-5" type="search" placeholder="Search" aria-label="Search" id="search-bar">
+        <button class="btn btn-outline-light" type="submit" id="search-submit">Search</button>
+      </form>
+      <div class=" d-flex flex-column flex-lg-row gap-2">
+        <a href="{{path('app_register')}}" class="btn btn-success">Sign Up</a>
+        {% if app.user %}
+          <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
+        {% else %}
+          <a href="{{path('app_login')}}" class="btn btn-secondary">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
