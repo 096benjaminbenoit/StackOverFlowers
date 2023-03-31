@@ -39,15 +39,18 @@
         </div>
     {% endfor %}
 
-    {% if thread.status == 'Active' %}
+    {% if thread.status == 'Active' and app.user %}
 
         {{ form_start(form, {'attr': {'class': 'w-75 mx-auto'}}) }}
             {{ form_row(form.content, {'attr': {'class': 'form-control my-2'}}) }}
                 <button class="btn btn-dark mt-2"><i class="fa-solid fa-plus pe-2" style="color: #ffffff;"></i>{{ button_label|default('New comment') }}</button>
         {{ form_end(form) }}
+    {% elseif thread.status == 'Active' %}
+        <h5 class="text-center fw-bold fst-italic">Please <a href="{{path('app_login')}}">login</a> to comment</h5>
     {% elseif thread.status == 'Closed' %}
         <h5 class="text-center fw-bold fst-italic">This thread as been closed</h5>
     {% endif %}
+
 </section>
 
 {% endblock %}
