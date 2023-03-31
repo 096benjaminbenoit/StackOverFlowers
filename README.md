@@ -12,5 +12,5 @@ For admin access, please Sign Up and modify your role in database with ["ROLE_AD
 
 ### Author
 <hr>
-- [@096benjaminbenoit](https://www.github.com/octokatherine)
+- [@096benjaminbenoit](https://www.github.com/096benjaminbenoit)
 
