@@ -1,10 +1,17 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}New Thread{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-3 fw-bold">New Thread</h1>
+    <h1 class="text-center mt-3 fw-bold">Create new Thread</h1>
 
-    {{ include('thread/_form.html.twig') }}
+{{ form_start(form, {'attr': {'class' : 'w-75 mx-auto'}}) }}
+    {{ form_row(form.title, {'attr': {'class' : 'form-control'}})}}
+    {{ form_row(form.content, {'attr': {'class' : 'form-control'}})}}
+    {{ form_row(form.technology, {'attr': {'class' : 'form-select'}})}}
+    <a class="btn btn-dark mt-3" href="{{ path('app_home') }}"><i class="fa-solid fa-house pe-2" style="color: #ffffff;"></i>Back to home</a>
+    <button class="btn btn-dark mt-3 ms-2"><i class="fa-solid fa-floppy-disk pe-2" style="color: #ffffff;"></i>{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
 
 {% endblock %}

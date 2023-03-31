@@ -2,30 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Comment;
+use App\Entity\Thread;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Comment1Type extends AbstractType
+class AdminThreadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('comment_date', DateType::class, [
-                'widget' => 'single_text'
-            ])
+            ->add('title')
             ->add('content')
-            ->add('thread')
-            ->add('user')
+            // ->add('post_date')
+            ->add('status')
+            ->add('technology')
+            // ->add('user')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Comment::class,
+            'data_class' => Thread::class,
         ]);
     }
 }

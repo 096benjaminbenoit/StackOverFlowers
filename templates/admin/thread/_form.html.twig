@@ -1,0 +1,16 @@
+<div class='w-75 mx-auto'>
+    {{ form_start(form, {'attr': {'class' : ''}}) }}
+        {{ form_row(form.title, {'attr': {'class' : 'form-control mb-3 mt-1'}})}}
+        {{ form_row(form.content, {'attr': {'class' : 'form-control mb-3 mt-1'}})}}
+        {{ form_row(form.technology, {'attr': {'class' : 'form-select mb-3 mt-1'}})}}
+        {{ form_row(form.status, {'attr': {'class' : 'form-select'}})}}
+        <div class='d-flex'>
+            <a class='btn btn-dark mt-3' href="{{ path('app_admin_thread_index') }}"><i class="fa-solid fa-arrow-left pe-2" style="color: #ffffff;"></i>Back to admin board</a>
+            {# <a class="btn btn-dark mt-3" href="{{ path('app_home') }}"><i class="fa-solid fa-house pe-2" style="color: #ffffff;"></i>Back to home</a> #}
+            <button class="btn btn-dark mt-3 ms-2"><i class="fa-solid fa-floppy-disk pe-2" style="color: #ffffff;"></i>{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+            {{ include('admin/thread/_delete_form.html.twig') }}
+        </div>
+
+</div>
+
