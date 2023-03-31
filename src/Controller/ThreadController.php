@@ -40,6 +40,9 @@ class ThreadController extends AbstractController
         $thread->setStatus('Active');
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // foreach($thread->getTechnology() as $technology) {
+            //     $technology->addThread($thread);
+            // }
             $threadRepository->save($thread, true);
 
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);

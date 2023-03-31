@@ -34,7 +34,9 @@ class ThreadType extends AbstractType
             ->add('technology', EntityType::class, [
                 'class' => Technology::class,
                 'choice_label' => 'name',
-                'mapped' => false
+                // 'mapped' => false
+                'multiple' => true,
+                'by_reference' => false
             ])
 
             // ->add('status', ChoiceType::class, [
