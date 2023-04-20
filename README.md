@@ -26,3 +26,4 @@ As an admin you can edit or delete comments and threads
 
 ![Alt text](bdd_stackoverflowers.png "Optional title")
 
+<<<<<<< HEAD
